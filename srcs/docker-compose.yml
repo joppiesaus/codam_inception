@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+
+  wordpress:
+    container_name: wordpress
+    hostname: wordpress
+    build:
+      context: ./requirements/wordpress
+      args:
+        - TEST=TEST
+    restart: on-failure
