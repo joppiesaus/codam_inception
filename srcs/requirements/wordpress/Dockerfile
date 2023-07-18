@@ -1,3 +1,6 @@
+# Welcome to my wordpress dockerfile.
+# the quote for this file is: "you're acting a little amongus sus, joe"
+
 FROM debian:bookworm
 
 # the wordpress version to install. I'm calling it

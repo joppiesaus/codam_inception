@@ -1,3 +1,4 @@
+# hnnggghhhh docker compose docker compose
 version: '3.4'
 
 services:
@@ -10,3 +11,20 @@ services:
       args:
         - TEST=TEST
     restart: on-failure
+    networks:
+      - epic
+
+  nginx:
+    container_name: nginx
+    hostname: nginx
+    ports:
+      - "8080:80"
+    build:
+      context: ./requirements/nginx
+    restart: on-failure
+    networks:
+      - epic
+
+networks:
+  epic:
+    driver: bridge # isolated network between all containers
