@@ -10,7 +10,8 @@ RUN apt-get install nginx -y
 RUN mkdir /tmp/nginx_conf
 WORKDIR /tmp/nginx_conf
 
-COPY nginx.conf $WORKDIR
+# copy da config to the nginx dir
+COPY nginx.conf /etc/nginx/sites-enabled/default
 
 # Run nginx 
-CMD [ "nginx", "-c", "/tmp/nginx_conf/nginx.conf", "-g", "daemon off;"]
+CMD [ "nginx", "-g", "daemon off;"]
