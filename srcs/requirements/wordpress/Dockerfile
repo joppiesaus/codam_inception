@@ -8,8 +8,8 @@ FROM debian:bookworm
 # is a wordpress thing I cannot touch
 ENV MY_WORDPRESS_VERSION="6.2.2"
 
-#RUN echo $MY_WORDPRESS_VERSION
-#RUN apt-get update && apt-get upgrade -y
+RUN echo "Using wordpress $MY_WORDPRESS_VERSION"
+RUN apt-get update && apt-get upgrade -y
 #RUN apt-get install -y wget php8.2-fpm php8.2-mysql tar
 
 WORKDIR /tmp
@@ -20,6 +20,8 @@ WORKDIR /tmp
 # extract wordpress
 #RUN tar -xzvf wordpress-$MY_WORDPRESS_VERSION.tar.gz
 
+RUN apt-get install -y mariadb-client
 
+#RUN mariadb --host mariadb -u $DB_ADMIN_NAME --password="$DB_ADMIN_PASSWORD"
 
-CMD echo hi && sleep 99d
+#CMD echo hi && sleep 99d

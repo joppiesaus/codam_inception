@@ -8,8 +8,15 @@ services:
     restart: on-failure
     build:
       context: ./requirements/mariadb
+      # todo: maybe just steal from .env instead???? idk
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_ADMIN_NAME=${DB_ADMIN_NAME}
+        - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
     expose:
       - 3306
+    env_file:
+      - .env
     networks:
       - epic
 
@@ -25,6 +32,8 @@ services:
     expose:
       - 9000
     restart: on-failure
+    env_file:
+      - .env
     networks:
       - epic
 
