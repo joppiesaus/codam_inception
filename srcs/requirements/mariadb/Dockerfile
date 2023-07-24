@@ -23,4 +23,10 @@ RUN ./expand_vars.sh initdb_unexpanded.sql > initdb.sql
 # this is in one line because otherwise it doesn't wait until the server started or something idk
 RUN service mariadb start && echo -n "Creating database..." && mariadb -h localhost -u root < initdb.sql && echo " Done."
 
+# Allow remote connections in mariadb
+RUN sed "s/^bind-address/#/" /etc/mysql/mariadb.conf.d/50-server.cnf > /etc/mysql/mariadb.conf.d/50-server.cnf
+
+RUN echo "[mysqld]" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN echo "bind-address = 0.0.0.0" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+
 CMD [ "mariadbd", "--user=mysql" ]
