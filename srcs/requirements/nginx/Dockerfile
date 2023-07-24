@@ -14,4 +14,4 @@ WORKDIR /tmp/nginx_conf
 COPY nginx.conf /etc/nginx/sites-enabled/default
 
 # Run nginx 
-CMD [ "nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
