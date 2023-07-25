@@ -8,6 +8,9 @@ FROM debian:bookworm
 # is a wordpress thing I cannot touch
 ENV MY_WORDPRESS_VERSION="6.2.2"
 
+ARG DB_ADMIN_NAME
+ARG DB_ADMIN_PASSWORD
+
 RUN echo "Using wordpress $MY_WORDPRESS_VERSION"
 RUN apt-get update && apt-get upgrade -y
 
@@ -31,9 +34,6 @@ WORKDIR /var/www
 # Download wordpress
 RUN wp core download --version="${MY_WORDPRESS_VERSION}" --allow-root
 
+# this doesn't do anything. but it does show it can log in to the database
 RUN apt-get install -y mariadb-client
-
-#RUN mariadb --host mariadb -u $DB_ADMIN_NAME --password="$DB_ADMIN_PASSWORD"
-CMD [ "mariadb",  "--host", "mariadb", "-u", "jeff", "--password=\"Jan Peter Balkenende\"" ]
-#CMD echo hi
-#CMD echo hi && sleep 99d
+CMD [ "sh", "-c", "mariadb",  "--host", "mariadb", "-u", "${DB_ADMIN_NAME}", "--password=${DB_ADMIN_PASSWORD}" ]

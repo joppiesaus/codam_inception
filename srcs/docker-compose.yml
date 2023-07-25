@@ -28,7 +28,8 @@ services:
     build:
       context: ./requirements/wordpress
       args:
-        - TEST=TEST
+        - DB_ADMIN_NAME=${DB_ADMIN_NAME}
+        - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
     expose:
       - 9000
     restart: on-failure
