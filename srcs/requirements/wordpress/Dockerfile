@@ -6,10 +6,14 @@ FROM debian:bookworm
 # the wordpress version to install. I'm calling it
 # MY_WORDPRESS_VERSION because idk if WORDPRESS_VERSION
 # is a wordpress thing I cannot touch
-ENV MY_WORDPRESS_VERSION="6.2.2"
-
+ARG MY_WORDPRESS_VERSION
 ARG DB_ADMIN_NAME
 ARG DB_ADMIN_PASSWORD
+
+# this has to be a joke
+ENV MY_WORDPRESS_VERSION=${MY_WORDPRESS_VERSION}
+ENV DB_ADMIN_NAME=${DB_ADMIN_NAME}
+ENV DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
 
 RUN echo "Using wordpress $MY_WORDPRESS_VERSION"
 RUN apt-get update && apt-get upgrade -y
@@ -31,9 +35,10 @@ RUN wp --info
 RUN mkdir /var/www
 WORKDIR /var/www
 
-# Download wordpress
-RUN wp core download --version="${MY_WORDPRESS_VERSION}" --allow-root
+COPY run.sh ./ 
+COPY run.sh ./
 
 # this doesn't do anything. but it does show it can log in to the database
-RUN apt-get install -y mariadb-client
-CMD [ "sh", "-c", "mariadb",  "--host", "mariadb", "-u", "${DB_ADMIN_NAME}", "--password=${DB_ADMIN_PASSWORD}" ]
+#RUN apt-get install -y mariadb-client
+#CMD [ "sh", "-c", "mariadb",  "--host", "mariadb", "-u", "${DB_ADMIN_NAME}", "--password=${DB_ADMIN_PASSWORD}" ]
+CMD [ "bash", "run.sh" ]

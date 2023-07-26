@@ -28,6 +28,7 @@ services:
     build:
       context: ./requirements/wordpress
       args:
+        - MY_WORDPRESS_VERSION=6.2.2
         - DB_ADMIN_NAME=${DB_ADMIN_NAME}
         - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
     expose:
@@ -37,6 +38,8 @@ services:
       - .env
     networks:
       - epic
+    volumes:
+      - www:/var/www
 
   nginx:
     container_name: nginx
@@ -50,7 +53,17 @@ services:
     restart: on-failure
     networks:
       - epic
+    volumes:
+      - www:/var/www
 
 networks:
   epic:
     driver: bridge # isolated network between all containers
+
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind # both accessible for host and container
+      device: /home/job/data/www
