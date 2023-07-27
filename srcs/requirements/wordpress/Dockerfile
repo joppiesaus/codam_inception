@@ -14,6 +14,11 @@ ARG DB_ADMIN_PASSWORD
 ENV MY_WORDPRESS_VERSION=${MY_WORDPRESS_VERSION}
 ENV DB_ADMIN_NAME=${DB_ADMIN_NAME}
 ENV DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
+ENV ADMIN_NAME=${ADMIN_NAME}
+ENV ADMIN_PASSWORD=${ADMIN_PASSWORD}
+
+ENV DOMAIN="localhost"
+ENV TITLE="sussy among us blog"
 
 RUN echo "Using wordpress $MY_WORDPRESS_VERSION"
 RUN apt-get update && apt-get upgrade -y
@@ -35,8 +40,11 @@ RUN wp --info
 RUN mkdir /var/www
 WORKDIR /var/www
 
-COPY run.sh ./ 
-COPY run.sh ./
+# Allow incoming connections for php
+RUN sed -i "s/^listen\\s*=.*/listen = 0.0.0.0:9000/g" /etc/php/8.2/fpm/pool.d/www.conf
+RUN grep "^listen" /etc/php/8.2/fpm/pool.d/www.conf
+
+COPY run.sh .
 
 # this doesn't do anything. but it does show it can log in to the database
 #RUN apt-get install -y mariadb-client

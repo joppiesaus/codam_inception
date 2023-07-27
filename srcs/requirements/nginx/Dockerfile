@@ -11,7 +11,7 @@ RUN mkdir /tmp/nginx_conf
 WORKDIR /tmp/nginx_conf
 
 # copy da config to the nginx dir
-COPY nginx.conf /etc/nginx/sites-enabled/default
+COPY nginx.conf /etc/nginx/sites-enabled/default 
 
 # Run nginx 
 CMD ["nginx", "-g", "daemon off;"]
