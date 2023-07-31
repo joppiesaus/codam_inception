@@ -23,7 +23,7 @@ ENV TITLE="sussy among us blog"
 RUN echo "Using wordpress $MY_WORDPRESS_VERSION"
 RUN apt-get update && apt-get upgrade -y
 
-RUN apt-get install -y wget php8.2-fpm php8.2-mysql tar
+RUN apt-get install -y wget php8.2-fpm php8.2-mysql tar mariadb-client
 
 WORKDIR /tmp
 
@@ -44,9 +44,9 @@ WORKDIR /var/www
 RUN sed -i "s/^listen\\s*=.*/listen = 0.0.0.0:9000/g" /etc/php/8.2/fpm/pool.d/www.conf
 RUN grep "^listen" /etc/php/8.2/fpm/pool.d/www.conf
 
-COPY run.sh .
+COPY run.sh /tmp/
 
 # this doesn't do anything. but it does show it can log in to the database
 #RUN apt-get install -y mariadb-client
 #CMD [ "sh", "-c", "mariadb",  "--host", "mariadb", "-u", "${DB_ADMIN_NAME}", "--password=${DB_ADMIN_PASSWORD}" ]
-CMD [ "bash", "run.sh" ]
+CMD [ "bash", "/tmp/run.sh" ]

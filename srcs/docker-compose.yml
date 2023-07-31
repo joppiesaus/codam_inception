@@ -49,7 +49,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "8080:80"
+      - "80:80" # TODO
     build:
       context: ./requirements/nginx
     restart: on-failure
@@ -64,8 +64,8 @@ networks:
 
 volumes:
   www:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind # both accessible for host and container
-      device: /home/job/data/www
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind # both accessible for host and container
+    #   device: /home/job/data/www
