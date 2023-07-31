@@ -49,7 +49,8 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "80:80" # TODO
+      - "80:80" # TODO: Comment out on final
+      - "443:443"
     build:
       context: ./requirements/nginx
     restart: on-failure
