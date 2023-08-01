@@ -27,7 +27,9 @@ else
     # install wp core
     wp core install --url="$DOMAIN" --title="$TITLE" --admin_user="$ADMIN_NAME" --admin_password="$ADMIN_PASSWORD" --skip-email --admin_email="does_not_exist___@student.codam.nl" --locale="en_GB" --allow-root
 
-    # TODO: user
+    echo create regular user
+    # annoying inconsistency: for wp core install it is --admin_password, for wp user create it is --user_pass
+    wp user create "$USER_NAME" "$USER_EMAIL" --user_pass="$USER_PASSWORD" --description="Epic regular user" --allow-root
 fi
 
 
@@ -35,6 +37,9 @@ unset DB_ADMIN_NAME
 unset DB_ADMIN_PASSWORD
 unset ADMIN_NAME
 unset ADMIN_PASSWORD
+unset USER_NAME
+unset USER_PASSWORD
+unset USER_EMAIL
 
 echo "Running PHP in foreground(-F) now..."
 /usr/sbin/php-fpm8.2 -F 

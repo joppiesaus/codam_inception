@@ -1,6 +1,11 @@
 DB_NAME="epic"
 DB_ADMIN_NAME="jeff"
-DB_ADMIN_PASSWORD="Jan Peter Balkenende"
+DB_ADMIN_PASSWORD="something"
 
-ADMIN_NAME="zoep"
-ADMIN_PASSWORD="h"
+ADMIN_NAME="kleuter"
+ADMIN_PASSWORD="dreumes"
+
+# regular user
+USER_NAME="karlijn"
+USER_PASSWORD="k"
+USER_EMAIL="karlijn@karlijn.bestaatniet.edu"
