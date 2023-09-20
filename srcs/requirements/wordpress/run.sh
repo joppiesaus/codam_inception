@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 echo "Starting the wordpress run script"
 env
+echo "whoami: $(whoami)"
 pwd
 
 # Check if wordpress is installed
@@ -19,7 +20,23 @@ then
 else
     echo create wp config...
 
-    wp core config --dbname="$DB_NAME" --dbhost="mariadb" --dbuser="$DB_ADMIN_NAME" --dbpass="$DB_ADMIN_PASSWORD" --dbcollate="utf8_general_ci" --allow-root
+    tries=0
+
+    while : ; do
+        wp core config --dbname="$DB_NAME" --dbhost="mariadb" --dbuser="$DB_ADMIN_NAME" --dbpass="$DB_ADMIN_PASSWORD" --dbcollate="utf8_general_ci" --allow-root
+
+        # try again when it fails. Usually means database wasn't up yet for unclear reasons.
+        if [ $? -eq 0 ]; then
+            break
+        fi
+        let "tries=tries+1"
+        if [ $tries -eq 7 ]; then
+            echo "max tries ($tries) exceeded, giving up."
+            exit 1
+        fi
+        echo wp core cfg failed, try again in a few seconds...
+        sleep 5
+    done
 
     # fix permissions
     chmod 644 wp-config.php
@@ -32,7 +49,6 @@ else
     wp user create "$USER_NAME" "$USER_EMAIL" --user_pass="$USER_PASSWORD" --description="Epic regular user" --allow-root
 fi
 
-
 unset DB_ADMIN_NAME
 unset DB_ADMIN_PASSWORD
 unset ADMIN_NAME
@@ -40,6 +56,11 @@ unset ADMIN_PASSWORD
 unset USER_NAME
 unset USER_PASSWORD
 unset USER_EMAIL
+
+echo Setting correct permissions for uploads...
+mkdir -p wp-content/uploads
+chmod 775 -R wp-content/uploads
+chown -R www-data:www-data wp-content/uploads
 
 echo "Running PHP in foreground(-F) now..."
 /usr/sbin/php-fpm8.2 -F 

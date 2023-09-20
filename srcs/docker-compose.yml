@@ -19,6 +19,8 @@ services:
       - .env
     networks:
       - epic
+    # volumes:
+    #   - db:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
@@ -28,7 +30,7 @@ services:
     build:
       context: ./requirements/wordpress
       args:
-        - MY_WORDPRESS_VERSION=6.2.2
+        - MY_WORDPRESS_VERSION=6.3.1
         - DB_ADMIN_NAME=${DB_ADMIN_NAME}
         - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
         - ADMIN_NAME=${ADMIN_NAME}
@@ -49,8 +51,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "80:80" # TODO: Comment out on final
-      - "443:443"
+      - "4430:4430"
     build:
       context: ./requirements/nginx
     restart: on-failure
@@ -69,4 +70,4 @@ volumes:
     # driver_opts:
     #   type: none
     #   o: bind # both accessible for host and container
-    #   device: /home/job/data/www
+    #   device: /home/jobvan-d/data/www

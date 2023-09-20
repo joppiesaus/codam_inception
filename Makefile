@@ -1,11 +1,26 @@
+#           ^^                   @@@@@@@@@
+#      ^^       ^^            @@@@@@@@@@@@@@@
+#                           @@@@@@@@@@@@@@@@@@              ^^
+#                          @@@@@@@@@@@@@@@@@@@@
+#~~~~ ~~ ~~~~~ ~~~~~~~~ ~~ &&&&&&&&&&&&&&&&&&&& ~~~~~~~ ~~~~~~~~~~~ ~~~
+#~         ~~   ~  ~       ~~~~~~~~~~~~~~~~~~~~ ~       ~~     ~~ ~
+#  ~      ~~      ~~ ~~ ~~  ~~~~~~~~~~~~~ ~~~~  ~     ~~~    ~ ~~~  ~ ~~
+#  ~  ~~     ~         ~      ~~~~~~  ~~ ~~~       ~~ ~ ~~  ~~ ~
+#~  ~       ~ ~      ~           ~~ ~~~~~~  ~      ~~  ~             ~~
+#      ~             ~        ~      ~      ~~   ~             ~
+
 all:
 	cd srcs; docker-compose build mariadb nginx wordpress;
 	cd srcs; docker-compose up;
 
-rm_volumes:
+down:
+	cd srcs; docker-compose down
+
+rmvolumes:
+	docker rm $(docker ps -aq)
 	cd srcs; docker-compose down --volumes
 
-fclean: rm_volumes
+fclean: rmvolumes
 	cd srcs; docker system prune --force --volumes --all
 
 
