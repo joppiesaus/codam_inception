@@ -71,3 +71,9 @@ volumes:
     #   type: none
     #   o: bind # both accessible for host and container
     #   device: /home/jobvan-d/data/www
+  #db:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind # both accessible for host and container
+    #   device: /home/jobvan-d/data/db

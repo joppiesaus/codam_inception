@@ -2,7 +2,6 @@
 echo "Starting the wordpress run script"
 env
 echo "whoami: $(whoami)"
-pwd
 
 # Check if wordpress is installed
 if [ -f wp-login.php ]
