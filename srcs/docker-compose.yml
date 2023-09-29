@@ -8,7 +8,6 @@ services:
     restart: on-failure
     build:
       context: ./requirements/mariadb
-      # todo: maybe just steal from .env instead???? idk
       args:
         - DB_NAME=${DB_NAME}
         - DB_ADMIN_NAME=${DB_ADMIN_NAME}
@@ -19,8 +18,8 @@ services:
       - .env
     networks:
       - epic
-    # volumes:
-    #   - db:/var/lib/mysql
+    volumes:
+      - db:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
@@ -64,6 +63,8 @@ networks:
   epic:
     driver: bridge # isolated network between all containers
 
+# idk why in the HELL you would want the volumes mounted to a specific
+# directory, it can cause some problems, it's utility is there but smh
 volumes:
   www:
     # driver: local
@@ -71,7 +72,7 @@ volumes:
     #   type: none
     #   o: bind # both accessible for host and container
     #   device: /home/jobvan-d/data/www
-  #db:
+  db:
     # driver: local
     # driver_opts:
     #   type: none
