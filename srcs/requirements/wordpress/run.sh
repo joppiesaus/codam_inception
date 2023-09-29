@@ -33,7 +33,7 @@ else
             echo "max tries ($tries) exceeded, giving up."
             exit 1
         fi
-        echo wp core cfg failed, try again in a few seconds...
+        echo wp core cfg failed, trying again in a few seconds...
         sleep 5
     done
 
