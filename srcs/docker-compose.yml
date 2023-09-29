@@ -67,14 +67,14 @@ networks:
 # directory, it can cause some problems, it's utility is there but smh
 volumes:
   www:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   o: bind # both accessible for host and container
-    #   device: /home/jobvan-d/data/www
+    driver: local
+    driver_opts:
+      type: none
+      o: bind # both accessible for host and container
+      device: /home/jobvan-d/data/www
   db:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   o: bind # both accessible for host and container
-    #   device: /home/jobvan-d/data/db
+    driver: local
+    driver_opts:
+      type: none
+      o: bind # both accessible for host and container
+      device: /home/jobvan-d/data/db
