@@ -9,8 +9,6 @@
 #~  ~       ~ ~      ~           ~~ ~~~~~~  ~      ~~  ~             ~~
 #      ~             ~        ~      ~      ~~   ~             ~
 
-SHELL=/bin/bash
-
 all:
 	cd srcs; docker-compose build mariadb nginx wordpress;
 	cd srcs; docker-compose up;
