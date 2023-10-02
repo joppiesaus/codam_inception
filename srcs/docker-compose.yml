@@ -63,8 +63,8 @@ networks:
   epic:
     driver: bridge # isolated network between all containers
 
-# idk why in the HELL you would want the volumes mounted to a specific
-# directory, it can cause some problems, it's utility is there but smh
+# I would recommend not doing this for smaller containers as it is annoying,
+# but if you have a huge site or something this is anice
 volumes:
   www:
     driver: local
