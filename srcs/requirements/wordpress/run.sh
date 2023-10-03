@@ -41,7 +41,7 @@ else
     chmod 644 wp-config.php
 
     # install wp core
-    wp core install --url="$DOMAIN" --title="$TITLE" --admin_user="$ADMIN_NAME" --admin_password="$ADMIN_PASSWORD" --skip-email --admin_email="does_not_exist___@student.codam.nl" --locale="en_GB" --allow-root
+    wp core install --url="$WP_DOMAIN" --title="$TITLE" --admin_user="$ADMIN_NAME" --admin_password="$ADMIN_PASSWORD" --skip-email --admin_email="does_not_exist___@student.codam.nl" --locale="en_GB" --allow-root
 
     echo create regular user
     # annoying inconsistency: for wp core install it is --admin_password, for wp user create it is --user_pass
@@ -55,7 +55,7 @@ unset ADMIN_PASSWORD
 unset USER_NAME
 unset USER_PASSWORD
 unset USER_EMAIL
-unset DOMAIN
+unset WP_DOMAIN
 
 echo Setting correct permissions for uploads...
 mkdir -p wp-content/uploads
