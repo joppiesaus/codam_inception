@@ -34,6 +34,7 @@ services:
         - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
         - ADMIN_NAME=${ADMIN_NAME}
         - ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
+        - WP_DOMAIN=${WP_DOMAIN}
     expose:
       - 9000
     restart: on-failure
@@ -50,7 +51,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "4430:4430"
+      - "443:443"
     build:
       context: ./requirements/nginx
     restart: on-failure

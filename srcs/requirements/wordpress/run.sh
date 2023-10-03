@@ -55,6 +55,7 @@ unset ADMIN_PASSWORD
 unset USER_NAME
 unset USER_PASSWORD
 unset USER_EMAIL
+unset DOMAIN
 
 echo Setting correct permissions for uploads...
 mkdir -p wp-content/uploads
